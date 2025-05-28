@@ -1,0 +1,33 @@
+import unittest
+from src import max_chain_length
+
+class TestWChain(unittest.TestCase):
+    def test_example_1(self):
+        words = [
+            "crates", "car", "cats", "crate", "rate",
+            "at", "ate", "tea", "rat", "a"
+        ]
+        self.assertEqual(max_chain_length(words), 6)
+
+    def test_example_2(self):
+        words = ["b", "bcad", "bca", "bad", "bd"]
+        self.assertEqual(max_chain_length(words), 4)
+
+    def test_example_3(self):
+        words = ["word", "anotherword", "yetanotherword"]
+        self.assertEqual(max_chain_length(words), 1)
+
+    def test_single_letter(self):
+        words = ["a"]
+        self.assertEqual(max_chain_length(words), 1)
+
+    def test_no_possible_chain(self):
+        words = ["abc", "def", "ghi"]
+        self.assertEqual(max_chain_length(words), 1)
+
+    def test_long_chain(self):
+        words = ["a", "ab", "abc", "abcd", "abcde"]
+        self.assertEqual(max_chain_length(words), 5)
+
+if __name__ == "__main__":
+    unittest.main()
