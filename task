@@ -1,0 +1,31 @@
+def read_words(filename):
+    with open(filename, "r") as f:
+        n = int(f.readline())
+        words = [f.readline().strip() for _ in range(n)]
+    return words
+
+def max_chain_length(words):
+    word_set = set(words)
+    dp = {}
+
+    def dfs(word):
+        if word in dp:
+            return dp[word]
+        max_len = 1  
+        for i in range(len(word)):
+            new_word = word[:i] + word[i+1:]
+            if new_word in word_set:
+                max_len = max(max_len, 1 + dfs(new_word))
+        dp[word] = max_len
+        return max_len
+
+    return max(dfs(word) for word in words)
+
+def main():
+    words = read_words("wchain.in.txt")
+    result = max_chain_length(words)
+    with open("wchain.out.txt", "w") as f:
+        f.write(str(result) + "\n")
+
+if __name__ == "__main__":
+    main()
